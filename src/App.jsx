@@ -1,12 +1,34 @@
-import { Button } from "@mui/material";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import About from "./About";
+import Header from "./Header";
+import Footer from "./Footer";
+import Home from "./Homer";
 
 const App = () => {
   return (
-    <div className="text-red-600">
-      <h1>hello</h1>
-      <Button>Hi guys</Button>
+    <div className="">
+      <Header />
+      <Outlet />
+      <Footer />
     </div>
   );
 };
 
-export default App;
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+    ],
+  },
+]);
+
+export default appRouter;
