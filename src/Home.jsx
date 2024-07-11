@@ -50,107 +50,113 @@ const Home = () => {
   ];
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        bgcolor: darkMode ? "grey.600" : "white",
-        color: darkMode ? "white" : "black",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        pt: 7,
-        pb: 4,
-      }}
+    <div
+      className={`min-h-screen flex flex-col ${
+        darkMode ? "bg-gray-700" : "bg-white"
+      }`}
     >
-      <Typography
-        variant="h3"
-        gutterBottom
-        sx={{ fontWeight: "bold", textAlign: "center" }}
-      >
-        Shop Now!
-      </Typography>
       <Box
         sx={{
-          position: "relative",
+          minHeight: "100vh",
+          //bgcolor: darkMode ? "grey.600" : "white",
+          color: darkMode ? "white" : "black",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 3,
-          p: 2,
-          width: "100%",
-          maxWidth: 1200, // Adjust max width as needed
+          pt: 7,
+          pb: 4,
         }}
       >
-        {shimmer && (
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: 3,
-              p: 2,
-              transition: "opacity 0.5s",
-              opacity: shimmer ? 1 : 0,
-            }}
-          >
-            {[...Array(4)].map((_, index) => (
-              <ShimmerCard key={index} />
-            ))}
-          </Box>
-        )}
-        <Fade in={!shimmer} timeout={1000}>
-          <Grid
-            container
-            spacing={3}
-            sx={{
-              opacity: shimmer ? 0 : 1,
-              transition: "opacity 0.5s",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {cardItems.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card
-                  sx={{
-                    maxWidth: 345,
-                    bgcolor: darkMode ? "grey.800" : "white",
-                    color: darkMode ? "white" : "black",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    "&:hover": {
-                      transform: "scale(1.05)",
-                      boxShadow: darkMode ? 24 : 6,
-                    },
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={item.image}
-                    alt={item.title}
-                  />
-                  <CardContent>
-                    <Typography
-                      variant="h5"
-                      component="div"
-                      sx={{ color: darkMode ? "white" : "black" }}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: darkMode ? "grey.300" : "text.secondary" }}
-                    >
-                      {item.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Fade>
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{ fontWeight: "bold", textAlign: "center" }}
+        >
+          Shop Now!
+        </Typography>
+        <Box
+          sx={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 3,
+            p: 2,
+            width: "100%",
+            maxWidth: 1200, // Adjust max width as needed
+          }}
+        >
+          {shimmer && (
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: 3,
+                p: 2,
+                transition: "opacity 0.5s",
+                opacity: shimmer ? 1 : 0,
+              }}
+            >
+              {[...Array(4)].map((_, index) => (
+                <ShimmerCard key={index} />
+              ))}
+            </Box>
+          )}
+          <Fade in={!shimmer} timeout={1000}>
+            <Grid
+              container
+              spacing={3}
+              sx={{
+                opacity: shimmer ? 0 : 1,
+                transition: "opacity 0.5s",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {cardItems.map((item, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Card
+                    sx={{
+                      maxWidth: 345,
+                      bgcolor: darkMode ? "grey.900" : "white",
+                      color: darkMode ? "white" : "black",
+                      transition: "transform 0.3s, box-shadow 0.3s",
+                      "&:hover": {
+                        transform: "scale(1.05)",
+                        boxShadow: darkMode ? 24 : 6,
+                      },
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={item.image}
+                      alt={item.title}
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="h5"
+                        component="div"
+                        sx={{ color: darkMode ? "white" : "black" }}
+                      >
+                        {item.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: darkMode ? "grey.300" : "text.secondary" }}
+                      >
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Fade>
+        </Box>
       </Box>
-    </Box>
+    </div>
   );
 };
 

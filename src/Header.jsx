@@ -2,24 +2,33 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./assets/logo.jpg";
 import IconButton from "@mui/material/IconButton";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "./Redux/Slices/modeSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
+  const darkMode = useSelector((state) => state.mode);
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleDarkModeToggle = () => {
+    dispatch(toggleMode());
+  };
+
   return (
-    <div className="flex items-center justify-between p-4 md:p-6 shadow-lg bg-white">
+    <div
+      className={`flex items-center justify-between p-4 md:p-6 shadow-lg ${
+        darkMode ? "bg-gray-800" : "bg-white"
+      }`}
+    >
       {/* Logo and E-Shop (Hidden on Smaller Screens) */}
       <div className="flex items-center space-x-2 md:space-x-4">
         {/* Display Logo only */}
@@ -30,7 +39,11 @@ const Header = () => {
             alt="Logo"
           />
           {/* Hide E-Shop text on smaller screens */}
-          <h1 className="text-lg md:text-xl font-bold hidden sm:block">
+          <h1
+            className={`text-lg md:text-xl font-bold hidden sm:block ${
+              darkMode ? "text-white" : ""
+            }`}
+          >
             E-Shop
           </h1>
         </Link>
@@ -39,7 +52,7 @@ const Header = () => {
       {/* Category Menu (Hidden on Larger Screens) */}
       <div className="md:hidden flex items-center">
         <IconButton
-          color="inherit"
+          style={{ color: darkMode ? "#ffffff" : "black" }}
           aria-label="menu"
           onClick={handleMenuToggle}
         >
@@ -51,25 +64,33 @@ const Header = () => {
       <div className="hidden md:flex justify-center space-x-6 text-gray-600">
         <Link
           to={"/electronics"}
-          className="hover:text-blue-500 transition duration-300"
+          className={`hover:text-blue-500 transition duration-300 ${
+            darkMode ? "text-white" : ""
+          }`}
         >
           Electronics
         </Link>
         <Link
           to={"/sports"}
-          className="hover:text-blue-500 transition duration-300"
+          className={`hover:text-blue-500 transition duration-300 ${
+            darkMode ? "text-white" : ""
+          }`}
         >
           Sports
         </Link>
         <Link
           to={"/kitchen"}
-          className="hover:text-blue-500 transition duration-300"
+          className={`hover:text-blue-500 transition duration-300 ${
+            darkMode ? "text-white" : ""
+          }`}
         >
           Kitchen
         </Link>
         <Link
           to={"/clothing"}
-          className="hover:text-blue-500 transition duration-300"
+          className={`hover:text-blue-500 transition duration-300 ${
+            darkMode ? "text-white" : ""
+          }`}
         >
           Clothing
         </Link>
@@ -80,26 +101,33 @@ const Header = () => {
         <input
           type="text"
           placeholder="Search"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          className={`w-full px-3 py-2 border ${
+            darkMode ? "border-gray-600" : "border-gray-300"
+          } rounded-lg focus:outline-none focus:border-blue-500`}
         />
       </div>
 
       {/* Icons */}
       <div className="flex items-center space-x-4">
-        <IconButton color="inherit" aria-label="shopping cart">
+        <IconButton
+          style={{ color: darkMode ? "#ffffff" : "black" }}
+          aria-label="shopping cart"
+        >
           <ShoppingCartIcon />
         </IconButton>
-        <IconButton color="inherit" aria-label="account">
+        <IconButton
+          style={{ color: darkMode ? "#ffffff" : "black" }}
+          aria-label="account"
+        >
           <AccountCircleIcon />
         </IconButton>
+        {/* Toggle dark mode icon based on darkMode state */}
         <IconButton
-          color="inherit"
+          style={{ color: darkMode ? "#ffffff" : "black" }}
           aria-label="dark mode"
-          onClick={() => {
-            dispatch(toggleMode());
-          }}
+          onClick={handleDarkModeToggle}
         >
-          <Brightness4Icon />
+          <DarkModeIcon />
         </IconButton>
       </div>
 
@@ -108,25 +136,33 @@ const Header = () => {
         <div className="absolute top-16 right-4 z-10 bg-white shadow-lg rounded-lg p-4">
           <Link
             to={"/electronics"}
-            className="block py-2 hover:text-blue-500 transition duration-300"
+            className={`block py-2 hover:text-blue-500 transition duration-300 ${
+              darkMode ? "text-black" : ""
+            }`}
           >
             Electronics
           </Link>
           <Link
             to={"/sports"}
-            className="block py-2 hover:text-blue-500 transition duration-300"
+            className={`block py-2 hover:text-blue-500 transition duration-300 ${
+              darkMode ? "text-black" : ""
+            }`}
           >
             Sports
           </Link>
           <Link
             to={"/kitchen"}
-            className="block py-2 hover:text-blue-500 transition duration-300"
+            className={`block py-2 hover:text-blue-500 transition duration-300 ${
+              darkMode ? "text-black" : ""
+            }`}
           >
             Kitchen
           </Link>
           <Link
             to={"/clothing"}
-            className="block py-2 hover:text-blue-500 transition duration-300"
+            className={`block py-2 hover:text-blue-500 transition duration-300 ${
+              darkMode ? "text-black" : ""
+            }`}
           >
             Clothing
           </Link>
