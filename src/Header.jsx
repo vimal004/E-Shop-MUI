@@ -70,12 +70,6 @@ const Header = () => {
         >
           Clothing
         </Link>
-        <Link
-          to={"/clothing"}
-          className="hover:text-blue-500 transition duration-300"
-        >
-          Customer Service
-        </Link>
       </div>
 
       {/* Search Bar (Adjust Width Responsively) */}
@@ -126,12 +120,6 @@ const Header = () => {
             className="block py-2 hover:text-blue-500 transition duration-300"
           >
             Clothing
-          </Link>
-          <Link
-            to={"/"}
-            className="block py-2 hover:text-blue-500 transition duration-300"
-          >
-            Customer Service
           </Link>
         </div>
       )}
