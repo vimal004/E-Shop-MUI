@@ -9,11 +9,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "./Redux/Slices/modeSlice";
+import { setLoggedIn, setLoggedOut } from "./Redux/Slices/userSlice";
+import LoginModal from "./LoginModal"; // Import the LoginModal component
+import { LoginSharp } from "@mui/icons-material";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false); // State to manage login modal visibility
   const darkMode = useSelector((state) => state.mode);
+  const isLoggedIn = useSelector((state) => state.user.loggedstate);
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
@@ -21,6 +26,18 @@ const Header = () => {
 
   const handleDarkModeToggle = () => {
     dispatch(toggleMode());
+  };
+
+  const handleLoginClick = () => {
+    setLoginModalOpen(true); // Open the login modal when login icon is clicked
+  };
+
+  const handleLogout = () => {
+    dispatch(setLoggedOut()); // Dispatch action to set logged out state
+  };
+
+  const handleCloseLoginModal = () => {
+    setLoginModalOpen(false); // Close the login modal
   };
 
   return (
@@ -115,12 +132,23 @@ const Header = () => {
         >
           <ShoppingCartIcon />
         </IconButton>
-        <IconButton
-          style={{ color: darkMode ? "#ffffff" : "black" }}
-          aria-label="account"
-        >
-          <AccountCircleIcon />
-        </IconButton>
+        {isLoggedIn ? (
+          <IconButton
+            style={{ color: darkMode ? "#ffffff" : "black" }}
+            aria-label="account"
+            onClick={handleLogout}
+          >
+            <AccountCircleIcon />
+          </IconButton>
+        ) : (
+          <IconButton
+            style={{ color: darkMode ? "#ffffff" : "black" }}
+            aria-label="login"
+            onClick={handleLoginClick} // Open login modal on click
+          >
+            <LoginSharp />
+          </IconButton>
+        )}
         {/* Toggle dark mode icon based on darkMode state */}
         <IconButton
           style={{ color: darkMode ? "#ffffff" : "black" }}
@@ -168,6 +196,9 @@ const Header = () => {
           </Link>
         </div>
       )}
+
+      {/* Render Login Modal */}
+      <LoginModal open={loginModalOpen} onClose={handleCloseLoginModal} />
     </div>
   );
 };
