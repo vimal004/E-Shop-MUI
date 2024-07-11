@@ -7,8 +7,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
+import { toggleMode } from "./Redux/Slices/modeSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleMenuToggle = () => {
@@ -89,7 +92,13 @@ const Header = () => {
         <IconButton color="inherit" aria-label="account">
           <AccountCircleIcon />
         </IconButton>
-        <IconButton color="inherit" aria-label="dark mode">
+        <IconButton
+          color="inherit"
+          aria-label="dark mode"
+          onClick={() => {
+            dispatch(toggleMode());
+          }}
+        >
           <Brightness4Icon />
         </IconButton>
       </div>
