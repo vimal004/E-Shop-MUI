@@ -2,7 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import About from "./About";
 import Header from "./Header";
 import Footer from "./Footer";
-import Home from "./Homer";
+import Home from "./Home";
 
 const App = () => {
   return (
