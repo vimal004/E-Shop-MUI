@@ -13,7 +13,6 @@ import { setLoggedIn, setLoggedOut } from "./Redux/Slices/userSlice";
 import LoginModal from "./Components/LoginModal";
 import UserDetailsModal from "./Components/UserDetailsModal"; // Import UserDetailsModal component
 import { LoginSharp } from "@mui/icons-material";
-import { Button } from "@mui/material";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ const Header = () => {
   const [udm, setUdm] = useState(false); // State to manage UserDetailsModal visibility
   const darkMode = useSelector((state) => state.mode);
   const isLoggedIn = useSelector((state) => state.user.loggedstate);
-  const [search, setsearch] = useState("");
 
   const usershowdets = () => {
     setUdm(!udm); // Toggle UserDetailsModal visibility
@@ -119,17 +117,19 @@ const Header = () => {
           Clothing
         </Link>
       </div>
-      <form>
-        <div className="flex w-48 sm:w-64 mx-2 md:mx-4">
+
+      <div className="flex w-48 sm:w-64 mx-2 md:mx-4">
+        <form>
           <input
             type="text"
-            placeholder="Search for Products, Brand and More"
+            placeholder="Search"
             className={`w-full px-3 py-2 border ${
               darkMode ? "border-gray-600" : "border-gray-300"
             } rounded-lg focus:outline-none focus:border-blue-500`}
           />
-        </div>
-      </form>
+        </form>
+      </div>
+
       <div className="flex items-center space-x-4">
         <Link to="/cart">
           <IconButton
