@@ -98,7 +98,7 @@ const Home = () => {
                 opacity: shimmer ? 1 : 0,
               }}
             >
-              {[...Array(4)].map((_, index) => (
+              {[...Array(3)].map((_, index) => (
                 <ShimmerCard key={index} />
               ))}
             </Box>
