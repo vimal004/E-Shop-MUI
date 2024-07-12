@@ -31,8 +31,7 @@ const LoginModal = ({ open, onClose }) => {
   const [isRegister, setIsRegister] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const theme = useTheme();
-  const user = useSelector((state) => state.user.user);
-
+  
   const handleLogin = (e) => {
     e.preventDefault();
     axios
