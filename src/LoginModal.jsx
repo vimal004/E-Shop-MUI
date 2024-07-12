@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "./Redux/Slices/userSlice";
 import {
   Button,
@@ -15,6 +15,7 @@ import {
   Alert,
   Box,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 
@@ -29,6 +30,8 @@ const LoginModal = ({ open, onClose }) => {
   const [error, setError] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const darkmode = useSelector((state) => state.mode);
+  const theme = useTheme();
 
   const handleLogin = () => {
     // Simulate login logic (replace with actual authentication)
@@ -63,6 +66,11 @@ const LoginModal = ({ open, onClose }) => {
           style: {
             borderRadius: 15,
             padding: "10px 20px",
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? theme.palette.background.default
+                : "white",
+            color: theme.palette.mode === "dark" ? "white" : "black",
           },
         }}
       >
@@ -75,7 +83,7 @@ const LoginModal = ({ open, onClose }) => {
               position: "absolute",
               right: 8,
               top: 8,
-              color: (theme) => theme.palette.grey[500],
+              color: theme.palette.grey[500],
             }}
           >
             <CloseIcon />
@@ -97,6 +105,16 @@ const LoginModal = ({ open, onClose }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             sx={{ marginBottom: 2 }}
+            InputProps={{
+              style: {
+                color: theme.palette.mode === "dark" ? "white" : "black",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: theme.palette.mode === "dark" ? "white" : "black",
+              },
+            }}
           />
           <TextField
             margin="dense"
@@ -109,6 +127,16 @@ const LoginModal = ({ open, onClose }) => {
             error={error !== ""}
             helperText={error}
             sx={{ marginBottom: 2 }}
+            InputProps={{
+              style: {
+                color: theme.palette.mode === "dark" ? "white" : "black",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: theme.palette.mode === "dark" ? "white" : "black",
+              },
+            }}
           />
           {isRegister && (
             <TextField
@@ -118,6 +146,16 @@ const LoginModal = ({ open, onClose }) => {
               fullWidth
               variant="outlined"
               sx={{ marginBottom: 2 }}
+              InputProps={{
+                style: {
+                  color: theme.palette.mode === "dark" ? "white" : "black",
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: theme.palette.mode === "dark" ? "white" : "black",
+                },
+              }}
             />
           )}
         </DialogContent>

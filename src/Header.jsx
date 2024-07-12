@@ -121,18 +121,19 @@ const Header = () => {
           className={`w-full px-3 py-2 border ${
             darkMode ? "border-gray-600" : "border-gray-300"
           } rounded-lg focus:outline-none focus:border-blue-500`}
-          value={""}
         />
       </div>
 
       {/* Icons */}
       <div className="flex items-center space-x-4">
-        <IconButton
-          style={{ color: darkMode ? "#ffffff" : "black" }}
-          aria-label="shopping cart"
-        >
-          <ShoppingCartIcon />
-        </IconButton>
+        <Link to="/cart">
+          <IconButton
+            style={{ color: darkMode ? "#ffffff" : "black" }}
+            aria-label="shopping cart"
+          >
+            <ShoppingCartIcon />
+          </IconButton>
+        </Link>
         {isLoggedIn ? (
           <IconButton
             style={{ color: darkMode ? "#ffffff" : "black" }}

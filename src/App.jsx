@@ -3,6 +3,7 @@ import About from "./About";
 import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Home";
+import Cart from "./Cart";
 
 const App = () => {
   return (
@@ -26,6 +27,10 @@ const appRouter = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
     ],
   },
