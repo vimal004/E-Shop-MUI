@@ -138,7 +138,7 @@ const Header = () => {
           <IconButton
             style={{ color: darkMode ? "#ffffff" : "black" }}
             aria-label="account"
-            onClick={handleLogout}
+            onClick={() => {}}
           >
             <AccountCircleIcon />
           </IconButton>
