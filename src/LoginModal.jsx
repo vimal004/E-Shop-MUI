@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "./Redux/Slices/userSlice";
+import axios from "axios";
 import {
   Button,
   Dialog,
@@ -13,8 +14,6 @@ import {
   IconButton,
   Snackbar,
   Alert,
-  Box,
-  Typography,
   useTheme,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
@@ -25,23 +24,50 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const LoginModal = ({ open, onClose }) => {
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const darkmode = useSelector((state) => state.mode);
   const theme = useTheme();
 
-  const handleLogin = () => {
-    // Simulate login logic (replace with actual authentication)
-    if (username === "user" && password === "password") {
-      dispatch(setLoggedIn()); // Dispatch action to set logged in state
-      onClose(); // Close modal
-      setSnackbarOpen(true); // Open snackbar
-    } else {
-      setError("Invalid username or password.");
+  const handleLogin = (e) => {
+    e.preventDefault();
+    axios
+      .post("https://mern-project-backend-green.vercel.app/api/users/login", {
+        email,
+        password,
+      })
+      .then(() => {
+        dispatch(setLoggedIn()); // Dispatch action to set logged in state
+        onClose(); // Close modal
+        setSnackbarOpen(true); // Open snackbar
+      })
+      .catch(() => {});
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
     }
+
+    axios
+      .post(
+        "https://mern-project-backend-green.vercel.app/api/users/register",
+        {
+          email,
+          password,
+        }
+      )
+      .then(() => {
+        dispatch(setLoggedIn()); // Dispatch action to set logged in state
+        onClose(); // Close modal
+        setSnackbarOpen(true); // Open snackbar
+      })
+      .catch(() => {});
   };
 
   const handleCloseSnackbar = () => {
@@ -51,8 +77,9 @@ const LoginModal = ({ open, onClose }) => {
   const handleToggleMode = () => {
     setIsRegister(!isRegister);
     setError("");
-    setUsername("");
+    setemail("");
     setPassword("");
+    setConfirmPassword("");
   };
 
   return (
@@ -93,17 +120,17 @@ const LoginModal = ({ open, onClose }) => {
           <DialogContentText>
             {isRegister
               ? "Please enter your details to register."
-              : "Please enter your username and password."}
+              : "Please enter your email and password."}
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            label="Username"
+            label="email"
             type="text"
             fullWidth
             variant="outlined"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
             sx={{ marginBottom: 2 }}
             InputProps={{
               style: {
@@ -145,6 +172,8 @@ const LoginModal = ({ open, onClose }) => {
               type="password"
               fullWidth
               variant="outlined"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               sx={{ marginBottom: 2 }}
               InputProps={{
                 style: {
@@ -169,7 +198,7 @@ const LoginModal = ({ open, onClose }) => {
             Cancel
           </Button>
           <Button
-            onClick={handleLogin}
+            onClick={isRegister ? handleRegister : handleLogin}
             variant="contained"
             color="primary"
             sx={{ borderRadius: 50, boxShadow: 3 }}
