@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "userSlice",
-  initialState: { clickstate: false, loggedstate: false },
+  initialState: { clickstate: false, loggedstate: false, user: [] },
   reducers: {
     toggleLoginModal: (state) => {
       return !state;
@@ -19,9 +19,13 @@ const userSlice = createSlice({
         loggedstate: false,
       };
     },
+    setUser: (state, action) => {
+      state.user.push(action.payload);
+      console.log(state.user);
+    },
   },
 });
 
-export const { toggleLoginModal, setLoggedIn, setLoggedOut } =
+export const { toggleLoginModal, setLoggedIn, setLoggedOut, setUser } =
   userSlice.actions;
 export default userSlice.reducer;

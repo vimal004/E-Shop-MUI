@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoggedIn } from "./Redux/Slices/userSlice";
+import { setLoggedIn, setUser } from "./Redux/Slices/userSlice";
 import axios from "axios";
 import {
   Button,
@@ -31,6 +31,7 @@ const LoginModal = ({ open, onClose }) => {
   const [isRegister, setIsRegister] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const theme = useTheme();
+  const user = useSelector((state) => state.user.user);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -39,7 +40,8 @@ const LoginModal = ({ open, onClose }) => {
         email,
         password,
       })
-      .then(() => {
+      .then((res) => {
+        dispatch(setUser(res?.data));
         dispatch(setLoggedIn()); // Dispatch action to set logged in state
         onClose(); // Close modal
         setSnackbarOpen(true); // Open snackbar
@@ -63,7 +65,6 @@ const LoginModal = ({ open, onClose }) => {
         }
       )
       .then(() => {
-        dispatch(setLoggedIn()); // Dispatch action to set logged in state
         onClose(); // Close modal
         setSnackbarOpen(true); // Open snackbar
       })
