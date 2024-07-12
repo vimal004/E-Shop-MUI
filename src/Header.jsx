@@ -68,7 +68,7 @@ const Header = () => {
               darkMode ? "text-white" : ""
             }`}
           >
-            E-Shop
+            E Shop
           </h1>
         </Link>
       </div>
