@@ -9,7 +9,7 @@ import {
   styled,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoggedOut } from "./Redux/Slices/userSlice";
+import { setLoggedOut } from "../Redux/Slices/userSlice";
 import CloseIcon from "@mui/icons-material/Close";
 
 // Styling for the closeButton IconButton

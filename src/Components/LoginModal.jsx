@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLoggedIn, setUser } from "./Redux/Slices/userSlice";
+import { setLoggedIn, setUser } from "../Redux/Slices/userSlice";
 import axios from "axios";
 import {
   Button,

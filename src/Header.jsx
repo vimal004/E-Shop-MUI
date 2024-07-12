@@ -10,8 +10,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "./Redux/Slices/modeSlice";
 import { setLoggedIn, setLoggedOut } from "./Redux/Slices/userSlice";
-import LoginModal from "./LoginModal";
-import UserDetailsModal from "./UserDetailsModal"; // Import UserDetailsModal component
+import LoginModal from "./Components/LoginModal";
+import UserDetailsModal from "./Components/UserDetailsModal"; // Import UserDetailsModal component
 import { LoginSharp } from "@mui/icons-material";
 
 const Header = () => {

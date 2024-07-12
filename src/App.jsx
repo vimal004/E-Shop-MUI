@@ -1,9 +1,9 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import About from "./About";
+import About from "./Pages/About";
 import Header from "./Header";
 import Footer from "./Footer";
-import Home from "./Home";
-import Cart from "./Cart";
+import Home from "./Pages/Home";
+import Cart from "./Pages/Cart";
 
 const App = () => {
   return (

@@ -9,11 +9,11 @@ import {
   CardContent,
   Fade,
 } from "@mui/material";
-import Clothing from "./assets/Clothing.jpg";
-import Kitchen from "./assets/Kitchen.jpg";
-import Sports from "./assets/Sports.jpg";
-import Electronics from "./assets/Electronics.avif";
-import ShimmerCard from "./ShimmerCard";
+import Clothing from "../assets/Clothing.jpg";
+import Kitchen from "../assets/Kitchen.jpg";
+import Sports from "../assets/Sports.jpg";
+import Electronics from "../assets/Electronics.avif";
+import ShimmerCard from "../Components/ShimmerCard";
 
 const Home = () => {
   const darkMode = useSelector((state) => state.mode);
