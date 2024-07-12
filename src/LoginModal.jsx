@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { setLoggedIn, setUser } from "./Redux/Slices/userSlice";
 import axios from "axios";
 import {
@@ -13,10 +13,10 @@ import {
   Slide,
   IconButton,
   Snackbar,
-  Alert,
   useTheme,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
+import MuiAlert from "@mui/material/Alert";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -24,14 +24,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const LoginModal = ({ open, onClose }) => {
   const dispatch = useDispatch();
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const theme = useTheme();
-  
+
   const handleLogin = (e) => {
     e.preventDefault();
     axios
@@ -41,17 +43,25 @@ const LoginModal = ({ open, onClose }) => {
       })
       .then((res) => {
         dispatch(setUser(res?.data));
-        dispatch(setLoggedIn()); // Dispatch action to set logged in state
-        onClose(); // Close modal
-        setSnackbarOpen(true); // Open snackbar
+        dispatch(setLoggedIn());
+        onClose();
+        setSnackbarMessage("Login Successful!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
       })
-      .catch(() => {});
+      .catch(() => {
+        setSnackbarMessage("Login Failed! Please check your credentials.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      });
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      setSnackbarMessage("Passwords do not match!");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
       return;
     }
 
@@ -64,10 +74,16 @@ const LoginModal = ({ open, onClose }) => {
         }
       )
       .then(() => {
-        onClose(); // Close modal
-        setSnackbarOpen(true); // Open snackbar
+        onClose();
+        setSnackbarMessage("Registration Successful!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
       })
-      .catch(() => {});
+      .catch(() => {
+        setSnackbarMessage("Registration Failed! Please try again.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      });
   };
 
   const handleCloseSnackbar = () => {
@@ -77,7 +93,7 @@ const LoginModal = ({ open, onClose }) => {
   const handleToggleMode = () => {
     setIsRegister(!isRegister);
     setError("");
-    setemail("");
+    setEmail("");
     setPassword("");
     setConfirmPassword("");
   };
@@ -125,12 +141,12 @@ const LoginModal = ({ open, onClose }) => {
           <TextField
             autoFocus
             margin="dense"
-            label="email"
-            type="text"
+            label="Email"
+            type="email"
             fullWidth
             variant="outlined"
             value={email}
-            onChange={(e) => setemail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             sx={{ marginBottom: 2 }}
             InputProps={{
               style: {
@@ -212,13 +228,14 @@ const LoginModal = ({ open, onClose }) => {
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
       >
-        <Alert
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          severity={snackbarSeverity}
           onClose={handleCloseSnackbar}
-          severity="success"
-          sx={{ width: "100%" }}
         >
-          {isRegister ? "Registration Successful!" : "Login Successful!"}
-        </Alert>
+          {snackbarMessage}
+        </MuiAlert>
       </Snackbar>
     </>
   );
