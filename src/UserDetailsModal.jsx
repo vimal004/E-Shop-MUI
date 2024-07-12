@@ -3,59 +3,49 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
   IconButton,
-  useTheme,
+  Typography,
+  styled,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedOut } from "./Redux/Slices/userSlice";
 
-const UserDetailsModal = ({ open, onClose, user }) => {
-  const theme = useTheme();
+// Styling for the closeButton IconButton
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  position: "absolute",
+  right: theme.spacing(1),
+  top: theme.spacing(1),
+  color: theme.palette.grey[500],
+}));
+
+const UserDetailsModal = ({ open, onClose }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user[0]);
+
+  const handleLogout = () => {
+    dispatch(setLoggedOut());
+    onClose(); // Close the modal after logging out
+  };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        style: {
-          borderRadius: 15,
-          padding: "10px 20px",
-          backgroundColor:
-            theme.palette.mode === "dark"
-              ? theme.palette.background.default
-              : "white",
-          color: theme.palette.mode === "dark" ? "white" : "black",
-        },
-      }}
-    >
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>
         User Details
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: theme.palette.grey[500],
-          }}
-        >
+        <CloseButton onClick={onClose}>
           <CloseIcon />
-        </IconButton>
+        </CloseButton>
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <strong>Email:</strong> {user.email}
-        </DialogContentText>
-        <DialogContentText>
-          <strong>Password:</strong> {user.password}
-        </DialogContentText>
+      <DialogContent dividers>
+        <Typography gutterBottom>
+          <strong>Email:</strong> {user?.email}
+        </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} sx={{ borderRadius: 50 }}>
-          Close
+        <Button onClick={handleLogout} color="primary" variant="contained">
+          Logout
         </Button>
       </DialogActions>
     </Dialog>

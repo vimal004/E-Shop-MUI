@@ -10,15 +10,21 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "./Redux/Slices/modeSlice";
 import { setLoggedIn, setLoggedOut } from "./Redux/Slices/userSlice";
-import LoginModal from "./LoginModal"; // Import the LoginModal component
+import LoginModal from "./LoginModal";
+import UserDetailsModal from "./UserDetailsModal"; // Import UserDetailsModal component
 import { LoginSharp } from "@mui/icons-material";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [loginModalOpen, setLoginModalOpen] = useState(false); // State to manage login modal visibility
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [udm, setUdm] = useState(false); // State to manage UserDetailsModal visibility
   const darkMode = useSelector((state) => state.mode);
   const isLoggedIn = useSelector((state) => state.user.loggedstate);
+
+  const usershowdets = () => {
+    setUdm(!udm); // Toggle UserDetailsModal visibility
+  };
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
@@ -29,15 +35,19 @@ const Header = () => {
   };
 
   const handleLoginClick = () => {
-    setLoginModalOpen(true); // Open the login modal when login icon is clicked
+    setLoginModalOpen(true);
   };
 
   const handleLogout = () => {
-    dispatch(setLoggedOut()); // Dispatch action to set logged out state
+    dispatch(setLoggedOut());
   };
 
   const handleCloseLoginModal = () => {
-    setLoginModalOpen(false); // Close the login modal
+    setLoginModalOpen(false);
+  };
+
+  const handleCloseUserDetailsModal = () => {
+    setUdm(false); // Close UserDetailsModal
   };
 
   return (
@@ -46,16 +56,13 @@ const Header = () => {
         darkMode ? "bg-gray-800" : "bg-white"
       }`}
     >
-      {/* Logo and E-Shop (Hidden on Smaller Screens) */}
       <div className="flex items-center space-x-2 md:space-x-4">
-        {/* Display Logo only */}
         <Link to={"/"} className="flex items-center space-x-2">
           <img
             className="h-10 w-10 md:h-12 md:w-12 rounded-full"
             src={Logo}
             alt="Logo"
           />
-          {/* Hide E-Shop text on smaller screens */}
           <h1
             className={`text-lg md:text-xl font-bold hidden sm:block ${
               darkMode ? "text-white" : ""
@@ -66,7 +73,6 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* Category Menu (Hidden on Larger Screens) */}
       <div className="md:hidden flex items-center">
         <IconButton
           style={{ color: darkMode ? "#ffffff" : "black" }}
@@ -77,7 +83,6 @@ const Header = () => {
         </IconButton>
       </div>
 
-      {/* Category Links (Visible on Larger Screens) */}
       <div className="hidden md:flex justify-center space-x-6 text-gray-600">
         <Link
           to={"/electronics"}
@@ -113,7 +118,6 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* Search Bar (Adjust Width Responsively) */}
       <div className="flex w-48 sm:w-64 mx-2 md:mx-4">
         <input
           type="text"
@@ -124,7 +128,6 @@ const Header = () => {
         />
       </div>
 
-      {/* Icons */}
       <div className="flex items-center space-x-4">
         <Link to="/cart">
           <IconButton
@@ -138,7 +141,7 @@ const Header = () => {
           <IconButton
             style={{ color: darkMode ? "#ffffff" : "black" }}
             aria-label="account"
-            onClick={() => {}}
+            onClick={usershowdets} // Toggle UserDetailsModal on click
           >
             <AccountCircleIcon />
           </IconButton>
@@ -146,12 +149,11 @@ const Header = () => {
           <IconButton
             style={{ color: darkMode ? "#ffffff" : "black" }}
             aria-label="login"
-            onClick={handleLoginClick} // Open login modal on click
+            onClick={handleLoginClick}
           >
             <LoginSharp />
           </IconButton>
         )}
-        {/* Toggle dark mode icon based on darkMode state */}
         <IconButton
           style={{ color: darkMode ? "#ffffff" : "black" }}
           aria-label="dark mode"
@@ -161,7 +163,6 @@ const Header = () => {
         </IconButton>
       </div>
 
-      {/* Collapsible Category Menu */}
       {menuOpen && (
         <div className="absolute top-16 right-4 z-10 bg-white shadow-lg rounded-lg p-4">
           <Link
@@ -199,8 +200,10 @@ const Header = () => {
         </div>
       )}
 
-      {/* Render Login Modal */}
       <LoginModal open={loginModalOpen} onClose={handleCloseLoginModal} />
+
+      {/* Render UserDetailsModal */}
+      <UserDetailsModal open={udm} onClose={handleCloseUserDetailsModal} />
     </div>
   );
 };
