@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Button,
@@ -9,9 +8,9 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedOut } from "./Redux/Slices/userSlice";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Styling for the closeButton IconButton
 const CloseButton = styled(IconButton)(({ theme }) => ({
@@ -31,22 +30,37 @@ const UserDetailsModal = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>
-        User Details
-        <CloseButton onClick={onClose}>
-          <CloseIcon />
-        </CloseButton>
-      </DialogTitle>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="xs"
+      PaperProps={{
+        style: {
+          borderRadius: 12, // Rounded corners
+          padding: "16px", // Padding inside the card
+          position: "absolute",
+          top: 56, // Adjust top position as needed
+          right: 20, // Adjust right position as needed
+          width: "240px", // Fixed width to maintain square appearance
+          height: "240px", // Fixed height to maintain square appearance
+        },
+      }}
+    >
       <DialogContent dividers>
         <Typography gutterBottom>
           <strong>Email:</strong> {user?.email}
+          <br></br>
+          <strong>Delivery Address:</strong>
         </Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleLogout} color="primary" variant="contained">
           Logout
         </Button>
+        <CloseButton onClick={onClose}>
+          <CloseIcon />
+        </CloseButton>
       </DialogActions>
     </Dialog>
   );
