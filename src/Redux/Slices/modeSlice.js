@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const modeSlice = createSlice({
   name: "modeSlice",
-  initialState: true,
+  initialState: false,
   reducers: {
     toggleMode: (state) => {
       return !state;
