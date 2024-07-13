@@ -58,7 +58,7 @@ const Cart = () => {
     setSnackbarOpen(false);
   };
 
-  return mail === "null" ? (
+  return mail.length < 5 ? (
     <div
       style={{
         minHeight: "100vh",
