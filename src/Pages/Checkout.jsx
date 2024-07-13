@@ -4,7 +4,7 @@ import Card from "../Components/Card1";
 import ShimmerCard from "../Components/ShimmerCard"; // Make sure to import ShimmerCard
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Checkout = () => {
   const currmode = useSelector((state) => state.mode);
@@ -12,6 +12,7 @@ const Checkout = () => {
   const [data, setData] = useState([]);
   const [address, setAddress] = useState(null);
   const [shimmer, setShimmer] = useState(true);
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .post("https://mern-project-backend-green.vercel.app/api/users/address", {
@@ -35,6 +36,7 @@ const Checkout = () => {
       })
       .then((res) => {
         console.log(res);
+        dispatch(setAddress(address));
       })
       .catch((err) => {
         console.log(err);

@@ -25,6 +25,8 @@ const UserDetailsModal = ({ open, onClose }) => {
   const user = useSelector((state) => state.user.user[0]);
 
   let userdets = localStorage.getItem("user");
+  let address = useSelector((state) => state.user.address);
+  useEffect(() => {}, [address]);
 
   const handleLogout = () => {
     localStorage.setItem("user", null);
@@ -57,7 +59,8 @@ const UserDetailsModal = ({ open, onClose }) => {
           <strong>Email:</strong>{" "}
           {user?.email || (userdets != "null" ? userdets : "--")}
           <br></br>
-          <strong>Delivery Address:</strong> {localStorage.getItem("address")}
+          <strong>Delivery Address:</strong>{" "}
+          {localStorage.getItem("address") || address}
         </Typography>
       </DialogContent>
       <DialogActions>
