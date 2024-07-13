@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import Home from "./Pages/Home";
 import Cart from "./Pages/Cart";
 import Product from "./Pages/Product";
+import Item from "./Pages/Item";
 
 const App = () => {
   return (
@@ -48,6 +49,22 @@ const appRouter = createBrowserRouter([
       {
         path: "clothing",
         element: <Product product={"clothing"} />,
+      },
+      {
+        path: "electronics/:id",
+        element: <Item />,
+      },
+      {
+        path: "clothing/:id",
+        element: <Item />,
+      },
+      {
+        path: "kitchen/:id",
+        element: <Item />,
+      },
+      {
+        path: "sports/:id",
+        element: <Item />,
       },
     ],
   },
