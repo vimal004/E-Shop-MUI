@@ -11,7 +11,6 @@ import {
   FormControl,
   InputLabel,
   Snackbar,
-  AlertTitle,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 
@@ -206,16 +205,15 @@ const Item = () => {
           >
             Buy Now
           </Button>
-          <FormControl>
+          <FormControl variant="outlined" className="w-24">
             <InputLabel>Qty</InputLabel>
             <Select
               value={data.qty}
               onChange={handleQtyChange}
-              className={`bg-${
-                currmode ? "white" : "white"
-              } m-2 border border-${currmode ? "white" : "white"} text-${
-                currmode ? "white" : "black"
-              } rounded`}
+              label="Qty"
+              className={`${
+                currmode ? "text-white" : "text-black"
+              } bg-white rounded`}
             >
               {[...Array(10).keys()].map((i) => (
                 <MenuItem key={i + 1} value={i + 1}>
@@ -267,8 +265,7 @@ const Item = () => {
           severity="success"
           sx={{ width: "100%" }}
         >
-          <AlertTitle>Success</AlertTitle>
-          {message}
+          Added to Cart
         </MuiAlert>
       </Snackbar>
     </Grid>
