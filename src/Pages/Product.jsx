@@ -57,7 +57,7 @@ const Product = ({ product }) => {
           {data.map(
             (d) =>
               d.category === product &&
-              d.product_name.toLowerCase().includes(searchtext) && (
+              d.product_name.toLowerCase().includes(searchtext.toLowerCase()) && (
                 <Link to={d.product_name} key={d.id}>
                   <Card
                     key={d.product_name}
