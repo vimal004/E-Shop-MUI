@@ -13,6 +13,7 @@ import { setLoggedIn, setLoggedOut } from "./Redux/Slices/userSlice";
 import LoginModal from "./Components/LoginModal";
 import UserDetailsModal from "./Components/UserDetailsModal"; // Import UserDetailsModal component
 import { LoginSharp } from "@mui/icons-material";
+import { setsearch } from "./Redux/Slices/searchSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -127,8 +128,7 @@ const Header = () => {
               darkMode ? "border-gray-600" : "border-gray-300"
             } rounded-lg focus:outline-none focus:border-blue-500`}
             onChange={(e) => {
-              settext(e.target.value);
-              setsearch(e.target.value.length > 0);
+              dispatch(setsearch(e.target.value));
             }}
           />
         </form>

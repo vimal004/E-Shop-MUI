@@ -22,6 +22,7 @@ const Product = ({ product }) => {
 
   const [shimmer, setShimmer] = useState(true);
   const currmode = useSelector((state) => state.mode);
+  const searchtext = useSelector((state) => state.search.text);
 
   return (
     <div
@@ -55,7 +56,8 @@ const Product = ({ product }) => {
         >
           {data.map(
             (d) =>
-              d.category === product && (
+              d.category === product &&
+              d.product_name.toLowerCase().includes(searchtext) && (
                 <Link to={d.product_name} key={d.id}>
                   <Card
                     key={d.product_name}

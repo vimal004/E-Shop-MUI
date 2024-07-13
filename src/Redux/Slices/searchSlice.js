@@ -2,13 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const searchSlice = createSlice({
   name: "searchSlice",
-  initialState: { text: "", search: false },
+  initialState: { text: "" },
   reducers: {
-    setsearch: (state) => {
-      return !state;
+    setsearch: (state, action) => {
+      state.text = action.payload;
+      console.log(state.text);
     },
   },
 });
 
-export const { toggleMode } = modeSlice.actions;
-export default modeSlice.reducer;
+export const { setsearch } = searchSlice.actions;
+export default searchSlice.reducer;
