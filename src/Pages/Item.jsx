@@ -209,7 +209,7 @@ const Item = () => {
           <FormControl>
             <InputLabel>Qty</InputLabel>
             <Select
-              value={data.qty || 1}
+              value={data.qty}
               onChange={handleQtyChange}
               className={`bg-${
                 currmode ? "white" : "white"
