@@ -139,7 +139,7 @@ const Cart = () => {
           data.map((item, index) => (
             <Grid item key={index}>
               <Link
-                to={`https://e-shop-mui-silk.vercel.app//cart/${item.product_name}`}
+                to={`https://e-shop-mui-silk.vercel.app/cart/${item.product_name}`}
               >
                 <Card
                   name={item.product_name}
