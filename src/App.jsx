@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Pages/Home";
 import Cart from "./Pages/Cart";
+import Product from "./Pages/Product";
 
 const App = () => {
   return (
@@ -31,6 +32,10 @@ const appRouter = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "electronics",
+        element: <Product product={"electronics"} />,
       },
     ],
   },
