@@ -3,15 +3,7 @@ import axios from "axios";
 import Card from "../Components/Card";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  Snackbar,
-  CircularProgress,
-  Grid,
-} from "@mui/material";
+import { Box, Button, Typography, Snackbar, Grid } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 
 const Cart = () => {
@@ -97,7 +89,8 @@ const Cart = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
           marginBottom: "16px",
         }}
@@ -105,19 +98,18 @@ const Cart = () => {
         <Typography
           variant="h3"
           style={{
-            marginLeft: "10cm", // Align heading 10cm to the right
             textAlign: "center",
-            flex: 1,
+            marginBottom: "16px",
           }}
         >
           Cart Items
         </Typography>
-        <Box display="flex" alignItems="center">
+        <Box display="flex" flexDirection="column" alignItems="center">
           <Button
             variant="contained"
             color="error"
             onClick={handleDelete}
-            style={{ marginRight: "16px" }}
+            style={{ marginBottom: "16px", minWidth: "150px" }}
           >
             Clear Cart
           </Button>
@@ -125,6 +117,7 @@ const Cart = () => {
             variant="contained"
             color="primary"
             onClick={() => navigate("/checkout")}
+            style={{ minWidth: "150px" }}
           >
             Proceed to Checkout
           </Button>
