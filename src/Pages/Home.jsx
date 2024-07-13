@@ -9,11 +9,13 @@ import {
   CardContent,
   Fade,
 } from "@mui/material";
+import { Routes, Route, Link } from "react-router-dom";
 import Clothing from "../assets/Clothing.jpg";
 import Kitchen from "../assets/Kitchen.jpg";
 import Sports from "../assets/Sports.jpg";
 import Electronics from "../assets/Electronics.avif";
 import ShimmerCard from "../Components/ShimmerCard";
+import Product from "./Product"; // Assuming Product component exists
 
 const Home = () => {
   const darkMode = useSelector((state) => state.mode);
@@ -31,21 +33,25 @@ const Home = () => {
       title: "Clothing",
       description: "Discover the latest trends in fashion.",
       image: Clothing,
+      path: "clothing",
     },
     {
       title: "Electronic Gadgets",
       description: "Explore a wide range of electronic gadgets.",
       image: Electronics,
+      path: "electronics",
     },
     {
       title: "Kitchen",
       description: "Find kitchen essentials and appliances.",
       image: Kitchen,
+      path: "kitchen",
     },
     {
       title: "Sport Kits",
       description: "Get ready for your favorite sports activities.",
       image: Sports,
+      path: "sports",
     },
   ];
 
@@ -58,7 +64,6 @@ const Home = () => {
       <Box
         sx={{
           minHeight: "100vh",
-          //bgcolor: darkMode ? "grey.600" : "white",
           color: darkMode ? "white" : "black",
           display: "flex",
           flexDirection: "column",
@@ -116,46 +121,61 @@ const Home = () => {
             >
               {cardItems.map((item, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Card
-                    sx={{
-                      maxWidth: 345,
-                      bgcolor: darkMode ? "grey.900" : "white",
-                      color: darkMode ? "white" : "black",
-                      transition: "transform 0.3s, box-shadow 0.3s",
-                      "&:hover": {
-                        transform: "scale(1.05)",
-                        boxShadow: darkMode ? 24 : 6,
-                      },
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={item.image}
-                      alt={item.title}
-                    />
-                    <CardContent>
-                      <Typography
-                        variant="h5"
-                        component="div"
-                        sx={{ color: darkMode ? "white" : "black" }}
-                      >
-                        {item.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ color: darkMode ? "grey.300" : "text.secondary" }}
-                      >
-                        {item.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                  <Link to={`/${item.path}`} style={{ textDecoration: "none" }}>
+                    <Card
+                      sx={{
+                        maxWidth: 345,
+                        bgcolor: darkMode ? "grey.900" : "white",
+                        color: darkMode ? "white" : "black",
+                        transition: "transform 0.3s, box-shadow 0.3s",
+                        "&:hover": {
+                          transform: "scale(1.05)",
+                          boxShadow: darkMode ? 24 : 6,
+                        },
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        height="140"
+                        image={item.image}
+                        alt={item.title}
+                      />
+                      <CardContent>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          sx={{ color: darkMode ? "white" : "black" }}
+                        >
+                          {item.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: darkMode ? "grey.300" : "text.secondary",
+                          }}
+                        >
+                          {item.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 </Grid>
               ))}
             </Grid>
           </Fade>
         </Box>
       </Box>
+
+      {/* Define routes for each product category */}
+      <Routes>
+        {cardItems.map((item, index) => (
+          <Route
+            key={index}
+            path={`/${item.path}`}
+            element={<Product product={item.path} />}
+          />
+        ))}
+      </Routes>
     </div>
   );
 };
