@@ -110,7 +110,7 @@ const Item = () => {
         "https://mern-project-backend-green.vercel.app/api/users/deletecart",
         {
           data: {
-            email: data.email,
+            email: localStorage.getItem("user"),
             product_name: data.product_name,
           },
         }
