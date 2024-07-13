@@ -49,7 +49,7 @@ const Item = () => {
       .then((res) => {
         const itemData = res.data.find((d) => d.product_name === id);
         if (itemData) {
-          setData({ ...itemData, email: localStorage.getItem("email") });
+          setData({ ...itemData, email: localStorage.getItem("user") });
         }
         setLoading(false);
       })
