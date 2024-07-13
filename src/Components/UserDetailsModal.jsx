@@ -57,7 +57,7 @@ const UserDetailsModal = ({ open, onClose }) => {
           <strong>Email:</strong>{" "}
           {user?.email || (userdets != "null" ? userdets : "--")}
           <br></br>
-          <strong>Delivery Address:</strong>
+          <strong>Delivery Address:</strong> {localStorage.getItem("address")}
         </Typography>
       </DialogContent>
       <DialogActions>

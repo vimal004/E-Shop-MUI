@@ -6,6 +6,7 @@ import Home from "./Pages/Home";
 import Cart from "./Pages/Cart";
 import Product from "./Pages/Product";
 import Item from "./Pages/Item";
+import Checkout from "./Pages/Checkout";
 
 const App = () => {
   return (
@@ -65,6 +66,10 @@ const appRouter = createBrowserRouter([
       {
         path: "sports/:id",
         element: <Item />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
     ],
   },
