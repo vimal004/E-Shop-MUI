@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../Components/Card";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Button, Typography, Snackbar, Grid } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
@@ -139,7 +139,7 @@ const Cart = () => {
           data.map((item, index) => (
             <Grid item key={index}>
               <Link
-                to={`https://e-shop-mui-silk.vercel.app/cart/${item.product_name}`}
+                to={`https://e-shop-gamma-sepia.vercel.app/cart/${item.product_name}`}
               >
                 <Card
                   name={item.product_name}

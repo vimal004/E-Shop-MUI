@@ -3,6 +3,7 @@ import axios from "axios";
 import Card from "../Components/Card1";
 import ShimmerCard from "../Components/ShimmerCard"; // Make sure to import ShimmerCard
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Checkout = () => {
@@ -117,15 +118,19 @@ const Checkout = () => {
             </>
           ) : (
             data.map((d, index) => (
-              <Card
-                key={index}
-                name={d.product_name}
-                rating={d.rating}
-                price={d.price}
-                imageLink={d.image_link}
-                qty={d.qty}
-                mode={currmode} // Assuming qty is provided in the data
-              />
+              <Link
+                to={`https://e-shop-gamma-sepia.vercel.app/cart/${d.product_name}`}
+              >
+                <Card
+                  key={index}
+                  name={d.product_name}
+                  rating={d.rating}
+                  price={d.price}
+                  imageLink={d.image_link}
+                  qty={d.qty}
+                  mode={currmode} // Assuming qty is provided in the data
+                />
+              </Link>
             ))
           )}
         </div>

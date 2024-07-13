@@ -71,6 +71,10 @@ const appRouter = createBrowserRouter([
         path: "/checkout",
         element: <Checkout />,
       },
+      {
+        path: "cart/:id",
+        element: <Item />,
+      },
     ],
   },
 ]);
