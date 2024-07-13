@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -24,10 +24,15 @@ const UserDetailsModal = ({ open, onClose }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user[0]);
 
+  let userdets = localStorage.getItem("user");
+
   const handleLogout = () => {
+    localStorage.setItem("user", null);
     dispatch(setLoggedOut());
     onClose(); // Close the modal after logging out
   };
+
+  useEffect(() => {}, [userdets]);
 
   return (
     <Dialog
@@ -49,7 +54,8 @@ const UserDetailsModal = ({ open, onClose }) => {
     >
       <DialogContent dividers>
         <Typography gutterBottom>
-          <strong>Email:</strong> {user?.email}
+          <strong>Email:</strong>{" "}
+          {user?.email || (userdets != "null" ? userdets : "--")}
           <br></br>
           <strong>Delivery Address:</strong>
         </Typography>

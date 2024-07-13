@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./assets/logo.jpg";
 import IconButton from "@mui/material/IconButton";
@@ -22,6 +22,13 @@ const Header = () => {
   const [udm, setUdm] = useState(false); // State to manage UserDetailsModal visibility
   const darkMode = useSelector((state) => state.mode);
   const isLoggedIn = useSelector((state) => state.user.loggedstate);
+  let user = localStorage.getItem("user");
+
+  useEffect(() => {
+    if (user != "null" && user != null) {
+      dispatch(setLoggedIn());
+    }
+  }, [user]);
 
   const usershowdets = () => {
     setUdm(!udm); // Toggle UserDetailsModal visibility

@@ -43,6 +43,8 @@ const LoginModal = ({ open, onClose }) => {
       })
       .then((res) => {
         dispatch(setUser(res?.data));
+        console.log(res?.data?.email);
+        localStorage.setItem("user", res?.data?.email);
         dispatch(setLoggedIn());
         onClose();
         setSnackbarMessage("Login Successful!");
