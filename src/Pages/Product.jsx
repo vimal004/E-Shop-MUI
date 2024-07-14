@@ -3,10 +3,17 @@ import Card from "../Components/Card";
 import ShimmerCard from "../Components/ShimmerCard";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
+import searchSlice, { setsearch } from "../Redux/Slices/searchSlice";
 
 const Product = ({ product }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log("Location changed:", location.pathname); // Debug statement
+    dispatch(setsearch("")); // Clear search value
+  }, [location.pathname]); // Trigger effect on location pathname change
+
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [shimmer, setShimmer] = useState(true);

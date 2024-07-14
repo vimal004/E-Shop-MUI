@@ -5,8 +5,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Button, Typography, Snackbar, Grid } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
+import { useDispatch } from "react-redux";
+import { setsearch } from "../Redux/Slices/searchSlice";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const [shimmer, setShimmer] = useState(true);
   const [data, setData] = useState([]);
   const email = localStorage.getItem("user");
@@ -14,6 +17,10 @@ const Cart = () => {
   const currmode = useSelector((state) => state.mode);
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  useEffect(() => {
+    console.log("Location changed:", location.pathname); // Debug statement
+    dispatch(setsearch("")); // Clear search value
+  }, [location.pathname]);
 
   useEffect(() => {
     if (email) {

@@ -23,6 +23,14 @@ const Header = () => {
   const darkMode = useSelector((state) => state.mode);
   const isLoggedIn = useSelector((state) => state.user.loggedstate);
   let user = localStorage.getItem("user");
+  let search = useSelector((state) => state.search.text);
+
+  useEffect(() => {
+    console.log("Location changed:", location.pathname); // Debug statement
+    dispatch(setsearch("")); // Clear search value
+  }, [location.pathname]);
+
+  useEffect(() => {}, [search]);
 
   useEffect(() => {
     if (user != "null" && user != null) {
@@ -131,6 +139,7 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search"
+            value={search}
             className={`w-full px-3 py-2 border ${
               darkMode ? "border-gray-600" : "border-gray-300"
             } rounded-lg focus:outline-none focus:border-blue-500`}

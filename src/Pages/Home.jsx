@@ -16,8 +16,11 @@ import Sports from "../assets/Sports.jpg";
 import Electronics from "../assets/Electronics.avif";
 import ShimmerCard from "../Components/ShimmerCard";
 import Product from "./Product"; // Assuming Product component exists
+import { useDispatch } from "react-redux";
+import { setsearch } from "../Redux/Slices/searchSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.mode);
   const [shimmer, setShimmer] = useState(true);
 
@@ -54,6 +57,11 @@ const Home = () => {
       path: "sports",
     },
   ];
+
+  useEffect(() => {
+    console.log("Location changed:", location.pathname); // Debug statement
+    dispatch(setsearch("")); // Clear search value
+  }, [location.pathname]);
 
   return (
     <div
