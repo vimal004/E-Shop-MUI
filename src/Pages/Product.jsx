@@ -74,7 +74,7 @@ const Product = ({ product }) => {
       </h1>
 
       <div className="flex flex-col items-center mb-4">
-        <div className="flex gap-4 mb-4">
+        <div className="flex flex-col sm:flex-row gap-4 mb-4">
           <div>
             <label
               className={`block mb-1 ${currmode ? "text-white" : "text-black"}`}
@@ -132,7 +132,7 @@ const Product = ({ product }) => {
           {filteredData.map(
             (d) =>
               d.product_name.toLowerCase().includes(searchtext.toLowerCase()) &&
-              d.category == product && (
+              d.category === product && (
                 <Link to={d.product_name} key={d._id}>
                   <Card
                     key={d.product_name}
