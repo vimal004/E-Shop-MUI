@@ -33,6 +33,13 @@ const Product = ({ product }) => {
       });
   }, []);
 
+  useEffect(() => {
+    // Reset filters when product prop changes
+    setRatingFilter(0);
+    setPriceFilter(Infinity);
+    setFilteredData(data);
+  }, [product, data]);
+
   const handleRatingChange = (e) => {
     setRatingFilter(parseFloat(e.target.value));
   };
